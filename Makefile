@@ -5,17 +5,25 @@ DATA=./data
 all : build
 
 build :
-	mkdir -p $(DATA)/mariadb
-	mkdir -p $(DATA)/wordpress
-	docker-compose -f $(FILE) build
-	docker-compose -f $(FILE) up -d
+	sudo mkdir -p $(DATA)/mariadb
+	sudo mkdir -p $(DATA)/wordpress
+	sudo docker-compose -f $(FILE) build
+	sudo docker-compose -f $(FILE) up -d
+
+logs:
+	sudo docker logs wordpress
+	sudo docker logs mariadb
+	sudo docker logs nginx
+
+list:
+	sudo docker ps
 
 clean :
-	docker-compose -f $(FILE) down
+	sudo docker-compose -f $(FILE) down
 
 fclean : clean
-	rm -rf $(DATA)
-	docker system prune -af
+	sudo rm -rf $(DATA)
+	sudo docker system prune -af
 
 re : fclean build
 

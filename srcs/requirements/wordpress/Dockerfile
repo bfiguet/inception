@@ -4,10 +4,15 @@ RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install wget -y
 RUN apt-get install mariadb-client -y
-RUN apt-get install php-fpm php-mysqli -y
+RUN apt-get install php-fpm php-mysqli unzip -y
+
 RUN wget https://fr.wordpress.org/wordpress-6.4.1-fr_FR.tar.gz -P /var/www
 RUN cd /var/www && tar -xzf wordpress-6.4.1-fr_FR.tar.gz && rm wordpress-6.4.1-fr_FR.tar.gz
 RUN chown -R root:root /var/www/wordpress
+
+RUN wget https://downloads.wordpress.org/theme/kidsgen.1.0.0.zip -P /var/www
+RUN cd /var/www && unzip kidsgen.1.0.0.zip && rm kidsgen.1.0.0.zip
+
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
